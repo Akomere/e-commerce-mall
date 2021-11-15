@@ -5,7 +5,9 @@ import { auth } from "../../firbase/firebase.utils";
 import { connect } from "react-redux";
 import './header.styles.scss'
 
-const Header = ({currentuser}) => {
+const Header = ({currentUser}) => {
+    console.log(currentUser)
+    const currentUse = null
     return (
         <div className='header'>
             <Link className='logo-container' to='/'>
@@ -21,13 +23,12 @@ const Header = ({currentuser}) => {
                 </Link>
 
                 {
-                    currentuser ?
-                    <div className = 'option' 
+                    currentUser ?
+                    (<div className = 'option' 
                     onClick= {()=>auth.signOut()}>
                     SIGN OUT
-                    </div>
-                    :
-                    <Link className='option' to='/signin'>SIGN IN</Link>
+                    </div>) : (<Link className='option' to='/signin'>SIGN IN</Link>)
+                    
                 }
             </div>
         </div>
