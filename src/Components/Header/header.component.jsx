@@ -4,12 +4,15 @@ import { ReactComponent as Logo } from '../../assets/crown.svg'
 import { auth } from "../../firbase/firebase.utils";
 import { connect } from "react-redux";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
+import { selectCartHidden } from "../../redux/cart/cart.selector";
+import { selectCurrentUser } from "../../redux/user/user.selector";
+import { createStructuredSelector } from "reselect";
 import CartIcon from "../cart.icon/cart.component";
 import './header.styles.scss'
 
 const Header = ({currentUser,hidden}) => {
     console.log(currentUser)
-    const currentUse = null
+
     return (
         <div className='header'>
             <Link className='logo-container' to='/'>
@@ -40,9 +43,11 @@ const Header = ({currentUser,hidden}) => {
 
 }
 
-const mapStateToProps = ({user:{currentUser}, cart:{hidden}}) =>({
-    currentUser,
-    hidden
+// this method of passing in state is using createStructuredSelector which handles 
+// mutliple selectors and passes in the state automatically
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+    hidden: selectCartHidden
 })
 
 export default connect(mapStateToProps)(Header)
